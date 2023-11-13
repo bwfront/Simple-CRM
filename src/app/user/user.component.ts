@@ -3,6 +3,7 @@ import {
   MatDialog,
 } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
+import { User } from 'src/models/user.class';
 
 
 @Component({
@@ -11,10 +12,16 @@ import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.compo
   styleUrls: ['./user.component.sass']
 })
 export class UserComponent {
-  constructor(public dialog: MatDialog){
+
+  user: User = new User();
+
+
+  constructor(public dialog: MatDialog){ 
+    
   }
 
   openDialog(){
     this.dialog.open(DialogAddUserComponent);
   }
+
 }

@@ -1,13 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { User } from 'src/models/user.class';
-import {
-  Firestore,
-  addDoc,
-  collection,
-  collectionData,
-} from '@angular/fire/firestore';
-import { Observable, of } from 'rxjs';
+import { UserComponent } from '../user/user.component';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-dialog-add-user',
@@ -17,38 +12,24 @@ import { Observable, of } from 'rxjs';
 export class DialogAddUserComponent {
   user: User = new User();
   birthDate: Date = new Date();
-  firestore: Firestore = inject(Firestore);
+  userComponent: UserComponent;
+  loading: boolean = false;
 
-  Users$: Observable<any[]> = of([]);
-
-  constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>) {
-    this.getUserRef();
-  }
-
-
-  async setUser() {
-    await addDoc(this.getGameRef(), this.user.toJsonUser()).catch((err) => {
-      console.error(err);
-    });
-  }
-
-
-  getUserRef() {
-    const aCollection = collection(this.firestore, 'user');
-    this.Users$ = collectionData(aCollection);
-    this.Users$.forEach((e) => {
-      console.log(e);
-    });
-  }
-
-  getGameRef() {
-    return collection(this.firestore, 'user');
-  }
+  constructor(
+    public dialogRef: MatDialogRef<DialogAddUserComponent>,
+    private userService: UserService
+  ) {}
 
   saveUser() {
+    this.loading = true;
     this.user.birthDate = this.birthDate.getTime();
-    this.setUser();
+    let response = this.userService.setUser(this.user);
+    if (response) {
+      this.loading = false;
+      this.closeUserDialog();
+    }
   }
+
   closeUserDialog() {
     this.dialogRef.close();
   }

@@ -24,6 +24,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { DialogAddUserComponent } from './dialog-add-user/dialog-add-user.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatCardModule} from '@angular/material/card';
+import {MatTableModule} from '@angular/material/table';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent, UserComponent, DialogAddUserComponent],
@@ -43,6 +47,10 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatProgressBarModule,
+    MatCardModule,
+    MatTableModule,
+    HttpClientModule,
     provideFirebaseApp(() => initializeApp({"projectId":"simple-crm-6a35e","appId":"1:685384510235:web:2e2709b80ff4111bab01be","storageBucket":"simple-crm-6a35e.appspot.com","apiKey":"AIzaSyAhRr2xq-0LFaxfU5Av3O_hHjRKlyqqmi0","authDomain":"simple-crm-6a35e.firebaseapp.com","messagingSenderId":"685384510235"})),
     provideFirestore(() => getFirestore()),
     provideDatabase(() => getDatabase())

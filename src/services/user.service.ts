@@ -6,6 +6,7 @@ import {
   doc,
   getDoc,
   onSnapshot,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { User } from 'src/models/user.class';
 import { inject } from '@angular/core';
@@ -51,4 +52,16 @@ export class UserService {
       return null;
     }
   }
+
+  async updateUser(id: string, userData: any): Promise<void> {
+    const userDocRef = doc(this.firestore, 'user', id);
+    try {
+      await updateDoc(userDocRef, userData);
+    } catch (error) {
+      console.error('Fehler beim Aktualisieren des Benutzers:', error);
+    }
+  }
+
+
+  
 }

@@ -29,9 +29,12 @@ import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { DialogEditAddressComponent } from './dialog-edit-address/dialog-edit-address.component';
+import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, UserComponent, DialogAddUserComponent, UserDetailComponent],
+  declarations: [AppComponent, DashboardComponent, UserComponent, DialogAddUserComponent, UserDetailComponent, DialogEditAddressComponent, DialogEditUserComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -52,6 +55,7 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     MatCardModule,
     MatTableModule,
     HttpClientModule,
+    MatMenuModule,
     provideFirebaseApp(() => initializeApp({"projectId":"simple-crm-6a35e","appId":"1:685384510235:web:2e2709b80ff4111bab01be","storageBucket":"simple-crm-6a35e.appspot.com","apiKey":"AIzaSyAhRr2xq-0LFaxfU5Av3O_hHjRKlyqqmi0","authDomain":"simple-crm-6a35e.firebaseapp.com","messagingSenderId":"685384510235"})),
     provideFirestore(() => getFirestore()),
     provideDatabase(() => getDatabase())

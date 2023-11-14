@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/services/user.service';
+import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
+
 
 @Component({
   selector: 'app-user-detail',
@@ -15,10 +19,14 @@ export class UserDetailComponent {
   username: string = '';
   usermail: string = '';
   userbirth: string = '';
+  usercity: string = '';
+  userzipcode: string = '';
+  userstreet: string = '';
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -38,10 +46,36 @@ export class UserDetailComponent {
     }
   }
 
+
+
   userDatails() {
     this.username = this.user.firstName + ' ' + this.user.lastName;
     this.usermail = this.user.email;
-    this.userbirth = this.user.formatBrithDayUser(this.user.birthDate)
-    
+    this.userbirth = this.user.formatBrithDayUser(this.user.birthDate);
+    this.usercity = this.user.city;
+    this.userzipcode = this.user.zipCode;
+    this.userstreet = this.user.street;
+  }
+
+  editUser(): void {
+    const dialogRef = this.dialog.open(DialogEditUserComponent, {
+      data: { id: this.id },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchUser();
+      }
+    });
+  }
+
+  editAddress(): void {
+    const dialogRef = this.dialog.open(DialogEditAddressComponent, {
+      data: { id: this.id },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchUser();
+      }
+    });
   }
 }

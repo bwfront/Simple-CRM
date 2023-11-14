@@ -1,9 +1,13 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getDatabase, provideDatabase } from '@angular/fire/database';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -20,8 +24,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { DialogAddUserComponent } from './dialog-add-user/dialog-add-user.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-
-
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent, UserComponent, DialogAddUserComponent],
@@ -40,9 +42,14 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatInputModule,
     MatFormFieldModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    provideFirebaseApp(() => initializeApp({"projectId":"simple-crm-6a35e","appId":"1:685384510235:web:2e2709b80ff4111bab01be","storageBucket":"simple-crm-6a35e.appspot.com","apiKey":"AIzaSyAhRr2xq-0LFaxfU5Av3O_hHjRKlyqqmi0","authDomain":"simple-crm-6a35e.firebaseapp.com","messagingSenderId":"685384510235"})),
+    provideFirestore(() => getFirestore()),
+    provideDatabase(() => getDatabase())
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+
+}

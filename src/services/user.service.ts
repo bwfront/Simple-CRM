@@ -3,6 +3,9 @@ import {
   addDoc,
   collection,
   collectionData,
+  doc,
+  getDoc,
+  onSnapshot,
 } from '@angular/fire/firestore';
 import { User } from 'src/models/user.class';
 import { inject } from '@angular/core';
@@ -19,7 +22,6 @@ export class UserService {
   user: User = new User();
   firestore: Firestore = inject(Firestore);
   Users$: Observable<any[]> = of([]);
-  UsersResp;
 
   getGameRef() {
     return collection(this.firestore, 'user');
@@ -35,7 +37,18 @@ export class UserService {
       });
   }
 
-  getUserRef(): Observable<any[]> {
-    return collectionData(this.getGameRef());
+  getUsersRef(): Observable<any[]> {
+    return collectionData(this.getGameRef(), { idField: 'id' });
+  }
+
+  async getUserRef(docId: string): Promise<User | null> {
+    const docRef = doc(this.firestore, 'user', docId);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return new User(docSnap.data());
+    } else {
+      console.log('No User Found');
+      return null;
+    }
   }
 }

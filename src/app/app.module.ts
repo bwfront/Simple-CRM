@@ -28,9 +28,10 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, UserComponent, DialogAddUserComponent],
+  declarations: [AppComponent, DashboardComponent, UserComponent, DialogAddUserComponent, UserDetailComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

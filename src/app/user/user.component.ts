@@ -20,6 +20,7 @@ export class UserComponent implements OnDestroy {
     'street',
     'city',
     'zipCode',
+    'email', 
   ];
   dataSource = [];
   user: User = new User();
@@ -32,10 +33,10 @@ export class UserComponent implements OnDestroy {
 
   setUserTable() {
     this.subscription.add(
-      this.userService.getUserRef().subscribe((users) => {
+      this.userService.getUsersRef().subscribe((users) => {
         this.dataSource = users.map((user) => {
           if (user.birthDate) {
-            user.birthDate = this.formatBrithDayUser(user.birthDate);
+            user.birthDate = this.user.formatBrithDayUser(user.birthDate);
           }
           return user;
         });
@@ -43,9 +44,7 @@ export class UserComponent implements OnDestroy {
     );
   }
 
-  formatBrithDayUser(brithDay: Date) {
-    return formatDate(new Date(brithDay), 'yyyy-MM-dd', 'en-US');
-  }
+  
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
